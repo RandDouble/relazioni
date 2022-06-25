@@ -1,4 +1,8 @@
-\documentclass[a4paper]{article}
+\documentclass[a4paper, twocolumn]{article}
+
+\usepackage{amssymb, amsmath}
+\usepackage{physics}
+\usepackage{graphicx, xcolor}
 
 %******RELAZIONE DOMINIO TEMPO*****
 
@@ -14,6 +18,60 @@
 This report want to show the difference between two oscillating circuits that use only an operational amplifier, in particular the focus will be on the different functioning principle, the waveform produced, its quality and the electrical caracteristic of the waveform, so frequency and voltage peak to peak.
 
 \section{Introduction}
+
+\subsection{Astable Multivibrator}
+
+% \begin{figure}
+%     \centering
+%     \def \svgwidth{\columnwidth}
+%     \input{}
+% \end{figure}
+
+As shown in figure, the circuit is composed of two feedback loops, one gives a positive feedback and the other a negative feedback. Due to positive feedback in this circuit virtual ground principle cannot be used. In principle the circuit can be divided in two parts:
+
+\begin{itemize}
+    \item The Positive Feedback Loop, that behaves like a Schmidt Trigger.
+    \item The Negative Feedback Loop, that due to the presence of the capacitor introduce a time constant and induces the oscillations.
+\end{itemize}
+
+To understand why it oscillates we must write KVL:
+\begin{gather}
+    \begin{cases}
+        v_{out} - v^+ = R_2i_2\\
+        v^+= R_1i_2\\
+        v_{out}-v^- = R i\\
+        C\dv{v^-}{t}= i\\
+        v_{out} = E \cdot (v^+-v^-)
+    \end{cases}\\
+    \begin{cases}
+        \label{eq:genStable}
+        v^+=v_{out}\frac{R_1}{R_1+R_2}\\
+        v^-=v_{out}-RC\dv{v^-}{t}\\
+        v_{out} = E \cdot (v^+-v^-)
+    \end{cases}
+\end{gather}
+
+In \eqref{eq:genStable}, it is necessary to divide in two complementary scenarios: the charge and discharge of a capacitor, in fact suppose the capacitor is charged with a positive voltage and \(v_{out}\) is negative, then first the capacitor will discharge that follows \(\dv{v^-}{t}= \frac{v_{V_out}}{RC}\exp\left(\frac{-t}{RC}\right)\) and then it will charge with \(\dv{v^-}{t}= \frac{v_{V_out}}{RC}\left(1-\exp\left(\frac{-t}{RC}\right)\right)\). In general, considering only the discharge, the condition where \(v_{out}\) switches from positive to negative is:
+\begin{equation}
+    \label{eq:trigCond}
+    \exp\left(\frac{-t}{RC}\right) = \frac{R_2}{R_1+R_2}
+\end{equation}
+
+So from \eqref{eq:trigCond} is visibile that the duration of an oscillation depends on \(\tau = RC\) but also on \(R_1\) and \(R_2\), that set the level of charge in the capacitor necessary to trig the Schmidt part of multivibrator.
+
+\subsection{Collpits Oscillator}
+
+\begin{figure}
+    \centering
+    \def \svgwidth{\columnwidth}
+    \input{Colpitts.pdf_tex}
+\end{figure}
+
+As shown in figure this circuit is completely different from the prevois one, in fact it uses only a negative feedback loop. In this case in the feedback loop we have an LC tank, consisting of a pair of capacitor in series and an inductance in parallel. To start an oscillation it is necessary to respect the \emph{Barkhausen Criterion}, that states:
+% \begin{equation}
+%     G \ge \frac{1}{\Beta}
+% \end{equation}
+% Where: \(G\) is the voltage gain of the operational amplifier, and \(\Beta\) is the feedback ratio of the output. Another condition of the Barkhausen Criterion is the total shift phase of the loop must be an entire multiple of \(2\pi\). 
 
 \section{Measurement Methods}
 % Sottosezione Strumenti di Misura
@@ -33,8 +91,21 @@ This report want to show the difference between two oscillating circuits that us
     \item Capacitors;
 \end{itemize}
 
+\subsection{Procedure}
+
+After assembling the circuits on a Breadboard, it was applied a constant negative and positive voltage of 15 V on the alimentation pins of OPAMP. Then in both case an oscilloscope probe was connected on the output, in the case of the multivibrator a second probe was connected across the capacitor.  Then via OSC, the waveforms were sampled and saved on an excel file in the lab computer. 
+
 \section{Analysis}
+
 To analyze the circuit it was used a python enviroment that uses the libraries ``\emph{Numpy, Pandas and Matplotlib}'' in a Jupyter Notebook. 
+
+\subsection{Frequency}
+
+The first analysis done was to determine the oscillation frequency, in both circuits a capacitor was changed across several values to see the change in frequency and different waveform.
+
+The sampled waveforms consist of 2500 points, this points in the program are collected in a numpy array and then are passed in Numpy's FFT algorithm, this algorithm returns a complex valued array, rapresentign the Fourier Transform of he circuit, to obtain the fundamental frequency it is calculated the modulus of the component of the array and from it are extracted the highest value.
+
+From this we can confront the value with the expected value in both cases, and also we can confront how \emph{good} is the produced waveform with the expected waveform confronting the armonics of the two.
 
 \section{Conclusion}
 

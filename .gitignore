@@ -4,3 +4,8 @@
 *.fls
 *.log
 *.synctex.gz
+/data_freq/
+/data_time/
+/Simulation
+/Simulation/**
+/def_graph

@@ -4,7 +4,8 @@
 \usepackage{amsmath}
 \usepackage{physics}
 % \usepackage{siunitx}
-\usepackage{graphicx}
+\usepackage{graphicx, xcolor}
+
 \graphicspath{{./graph/}}
 
 %*****RELAZIONE DOMINIO FREQUENZA*****
@@ -31,13 +32,15 @@ To run the circuit in the desired configuration we have to use a negative feedba
 
 \subsection{Integrator Circuit}
 
-% \begin{figure}
-%     \centering
-%     % \def\svgwidht{\columnwidth}
-%     \input{differentiatorCircuit.pdf_tex}
-% \end{figure}
+\begin{figure}
+    \centering
+    \def\svgwidht{\columnwidth}
+    \input{graph/IntegratorCircuit.pdf_tex}
+    \label{fig:IntegrScheme}
+    \caption{Schematic of an Integrator Circuit}
+\end{figure}
 
-As in the figure, in the feedback loop we have a capacitor and a resistor, so writing the Ohm's Law, Capacitor Law ($ q = Cv \implies \dv {q}{t}=i=C\dv{v}{t} $) and KCL we obtain:
+As in \ref{fig:IntegrScheme}, in the feedback loop we have a capacitor and a resistor, so writing the Ohm's Law, Capacitor Law ($ q = Cv \implies \dv {q}{t}=i=C\dv{v}{t} $) and KCL we obtain:
 \begin{gather*}
     \begin{cases}
         v_{IN} - R\cdot i_R = v^-\\
@@ -73,7 +76,15 @@ Plotting the Bode Gain Diagramm shows a constant negative monotony of -20 dB/dec
 
 \subsection{Differentiator Circuit}
 
-As seen in figure, the circuit is similar to the previous case, but in this case the capacitor and the resistor are swapped. This change produces a completely different response to the input waveform, it can be understood writing KCL, the Ohm's Law and the capacitor law.
+\begin{figure}
+    \centering
+    \def \svgwidht{\columnwidth}
+    \input{graph/DifferentiatorCircuit.pdf_tex}
+    \label{fig:DifferScheme}
+    \caption{Schematic of a Differentiator Circuit}
+\end{figure}
+
+As shown in \ref{fig:DifferScheme}, the circuit is similar to the previous case, but in this case the capacitor and the resistor are swapped. This change produces a completely different response to the input waveform, it can be understood writing KCL, the Ohm's Law and the capacitor law.
 
 \begin{gather*}
     \begin{cases}
@@ -132,7 +143,7 @@ The two circuits are built as shown in the previous pictures, the Oscilloscope p
 
 \subsection{Computation}
 
-During the measuring process datas were saved on a csv file. To analyse  it was used a python enviroment, with the libraries ``\emph{Numpy, Pandas and Matplotlib}'', this enviroment was inserted in a Jupyter Notebook to visualize the results of computation in real time. The code computed and plotted from the data the Bode Diagram and the Nyquist Diagram. At this point it was used another software, ``\emph{NGSpice}'', to simulate the expected behavior in freqeuncy of the circuits. At this point datas from experiment and simulation are plotted and compared in the python enviroment.
+During the measuring process datas were saved on a csv file. To analyse  it was used a Python enviroment, with the libraries ``\emph{Numpy, Pandas and Matplotlib}'', this enviroment was inserted in a Jupyter Notebook to visualize the results of computation in real time. The code computed and plotted from the data the Bode Diagram and the Nyquist Diagram. At this point it was used another software, ``\emph{NGSpice}'', to simulate the expected behavior in frequency of the circuits. Then point datas from experiment and simulation are plotted and compared in the Python enviroment.
 
 \subsection{Integrator}
 
