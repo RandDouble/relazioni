@@ -22,7 +22,7 @@
 
 
 \section{Abstract}
-The objective was to measure the frequency response of two similar circuits, even thought use the same components, show different behaviors, not only in the resulting waveform, but also in the Frequency Response.
+The objective was to measure the frequency response of two similar circuits. Even thought the circuits use the same components, they show different behaviors, not only in the operation applied to the input signal to produce the output signal, but also in the Frequency Response.
 
 \section{Introduction}
 
@@ -30,9 +30,9 @@ The objective was to measure the frequency response of two similar circuits, eve
 
 The circuits are made of a resistor ($R$), a capacitor ($C$) and an operational amplifier. To analyze the circuits' behavior it is required to know the feature of an ideal operational amplifier, herein referred as ``OPAMP''.
 
-The ideal OPAMP is a voltage-controlled voltage source, with a voltage gain $E = \frac{V_o}{V_i}$, where $V_o$ is the output voltage and $V_i$ is the input voltage. In this case $V_o$ is referenced to ground, while $V_i$ is the voltage difference between two poles, that are named as inverting ($V^+$) and not inverting ($V^-$) inputs, so $V_i=V^+-V^-$. In the ideal OPAMP $E\to\infty$.
+The ideal OPAMP is a voltage-controlled voltage source, with a voltage gain $E = \frac{v_{OUT}}{v_{IN}}$, where $v_{OUT}$ is the output voltage and $V_{IN}$ is the input voltage. In this case $v_{OUT}$ is referenced to ground and $v_{IN}$ is the voltage difference between two poles named  inverting ($v^+$) and not inverting ($v^-$) inputs, so $v_{IN}=v^+ -v^-$. In the ideal OPAMP $E\to\infty$.
 
-To run the circuit in the desired configuration it is mandatory to use a negative feedback loop, so are respected the condition to use \emph{virtual short circuit principle}. From this principle follows the stability of negative feedback, $E\to\infty$ and $V^+-V^-=0$. From the latter the principle is also named 'Virtual Ground': often the not-inverting input is at ground potential, so $V^+=0=V^-$.
+To run the circuit in the desired configuration, the circuit has to have a negative feedback loop, so the conditions to use \emph{virtual short circuit principle} are respected. From this principle is obtained the stability of negative feedback, $E\to\infty$ and $v^+-v^-=0$. The principle is also named 'Virtual Ground': as in this case the not-inverting input is at ground potential, so $v^+=0=v^-$.
 
 \subsection{Integrator Circuit}
 \label{sec:integr}
@@ -46,7 +46,7 @@ To run the circuit in the desired configuration it is mandatory to use a negativ
 \end{figure}
 
 Referring to Figure~\ref{fig:IntegrScheme}, in the negative feedback loop there is a capacitor and a resistor.
-Using Ohm's Law, Capacitor Law ($ q = Cv \implies \dv {q}{t}=i=C\dv{v}{t} $) and KCL it is obtained:
+Using Ohm's Law, Capacitor Law ($ q = Cv \implies \dv {q}{t}=i=C\dv{v}{t} $) and KCL (Kirchhoff's current law) it is obtained:
 \begin{gather*}
     \begin{cases}
         v_{IN} - R\cdot i_R = v^-\\
@@ -65,7 +65,7 @@ From last equation, resolving for $v_{OUT}$:
     v_{OUT}=-\frac{1}{CR}\int_0^t{v_{IN}}\,dt + v(0)
 \end{equation}
 
-It is visible from~\eqref{eq:Integrator}, that the behavior of this circuit in time domain is to produce the input voltage integral function.
+It is visible from~\eqref{eq:Integrator}, that this circuit in time domain produces the integral function of the input signal.
 
 The frequency response is defined as \[H=\frac{v_{OUT}}{v_{IN}}(f)\].
 To obtain $H(f)$, it is applied Fourier Transform (FT) over \eqref{eq:Integrator}:
@@ -80,9 +80,9 @@ To obtain $H(f)$, it is applied Fourier Transform (FT) over \eqref{eq:Integrator
     \label{fig:IntBodeGraphTheo}
 \end{center}
 
-The Bode Gain Diagram in Figure~\ref{fig:IntBodeGraphTheo}shows a constant negative monotony of \SI{-20}{\deci\bel/Dec}, it means the output attenuation is increasing with the frequency.
+The Bode Gain Diagram in Figure~\ref{fig:IntBodeGraphTheo}shows a constant negative monotony of \SI{-20}{\deci\bel/Dec}, it means the output attenuation has a direct proportionality with the frequency.
 
-In the diagram is also shown the open loop gain of the OPAMP, that shows the real behavior of the OPAMP. The OPAMP has much higher gain than what permits the frequency response of the circuit, so the OPAMP never outputs its max gain at any frequency, this is due to the negative feedback loop that limits the circuit gain in a dynamical way compared to a resistive voltage divider which statically limits the gain.
+In the diagram is also shown the open-loop gain of the OPAMP, that shows the behavior of the OPAMP used without a feedback loop. The OPAMP has much higher possible gain than what permits the frequency response of the circuit, so the OPAMP is never saturated, so there will be not a distortion in the output. This is due to the negative feedback loop that limits the circuit gain in a dynamical way compared to a resistive voltage divider which statically limits the gain.
 
 \subsection{Differentiator Circuit} 
 \label{sec:diff}
@@ -127,9 +127,11 @@ Calculating \(H\) produces:
     \label{fig:DiffBodeGraphTheo}
 \end{center}
 
-In this case the circuit has a constant positive monotony of 20 dB/Dec, so output signal amplification is directly related to the frequency. In this case we can expect a peak at the frequency in the point where the open loop OPAMP gain intersects the circuit frequency response, then the behavior of the circuit will be similar to the open loop OPAMP due to the limitation of a real OPAMP.
+In this case the circuit has a constant positive monotony of \SI{20}{\deci\bel/Dec}, so output signal amplification is directly proportional to the frequency. In this case we can expect a peak at the frequency in the point where the open loop OPAMP gain intersects the circuit frequency response, then the behavior of the circuit will be similar to the open loop OPAMP due to the limitation of a real OPAMP.
 
-Also in this circuit we can see a dynamic change in the output gain of the circuit but with the opposite behavior of the precedent cases, but it is limited to what can supply the OPAMP. This leads to the conclusion that with a more complex feedback loop it is possible to amplify only some chosen frequency with the high gain that produces an OPAMP or to modulate the frequency response on some desired function, maybe with the right condition it is possible to produce periodical signal without an input signal.
+Also in this circuit we can see a dynamic change in the output gain of the circuit but with the opposite behavior of the precedent cases, but it is limited to what can supply the OPAMP. From this we can expect a distortion at high frequency if the theoretical output has a higher amplitude than the supplied voltage to the OPAMP, this situation can be avoided lowering the input voltage. 
+
+A second  conclusion is that with a more complex feedback loop it is possible to amplify only some chosen frequency, or set of frequencies,  with the versatility in gain of an OPAMP. Maybe with the right condition it is possible to produce periodical signal without an input signal.
 
 \section{Measurement Methods}
 
@@ -152,7 +154,7 @@ Also in this circuit we can see a dynamic change in the output gain of the circu
 
 \subsection{Procedure}
 
-The two circuits are built as shown in the previous Figures \ref{fig:DifferScheme} and \ref{fig:IntegrScheme}, the Oscilloscope probe was connected in the point named \(V_{OUT}\), grounded to ground. The function generator was connected to \(V_{IN}\) and ground.   The OPAMP was powered by a dual power supply, supplying the necessary \(V_{CC+}\) and \(V_{CC-}\).
+The two circuits are built as shown in the previous Figures \ref{fig:DifferScheme} and \ref{fig:IntegrScheme}, the Oscilloscope probe was connected in the point named \(V_{OUT}\), grounded to ground. The function generator was connected to \(V_{IN}\) and ground.   The OPAMP was powered by a dual power supply, supplying the necessary \(V_{CC+}\) and \(V_{CC-}\) respectively of \SI{15}{\volt} and \SI{-15}{\volt}.
 
 The measure procedure was:
 \begin{enumerate}
@@ -167,7 +169,7 @@ The frequencies have been chosen to use an approximate log scale (like 1, 2, 3, 
 
 \subsection{Computation}
 
-During the measuring process data were saved on a comma separated value text file (CSV). Data have been analyzed using a Python environment with ``\emph{NumPy, Pandas and Matplotlib}'' libraries. This environment was included in a Jupyter Notebook to visualize the analysis results in real time. The code computed and plotted from the data the Bode Diagram and the Nyquist Diagram. Using another software, ``\emph{NGSpice}'', it was simulated the expected behavior in frequency, in the simulation is added a \SI{50}{\ohm} resistor to mimic the function generator impedance. At last data from experiment and simulation are compared in the Python environment.
+During the measuring process data were saved on a comma separated value text file (CSV). Data have been analyzed using a Python environment with ``\emph{NumPy, Pandas and Matplotlib}'' libraries. This environment was included in a Jupyter Notebook to visualize the analysis results in real time and to use the advantages of an interpreted language like Python to modify the code in real time. The code computed and plotted from the data the Bode Diagram and the Nyquist Diagram. Using another software, ``\emph{NGSpice}'', it was simulated the expected behavior in frequency, in the simulation is added a \SI{50}{\ohm} resistor to mimic the function generator impedance. At last data from experiment and simulation are compared in the Python environment.
     
 % \end{multicols}
 
@@ -181,11 +183,8 @@ During the measuring process data were saved on a comma separated value text fil
     \label{fig:expIntegr}
 \end{figure*}
 
-% \begin{multicols}{2}
-
 As shown in Figure~\ref{fig:expIntegr} the frequency response is very similar to the expected one. There is a difference in the curl at high frequency, this is probably due to non-ideal aspect of OPAMP amplification frequency response due to the fact that is present also in the simulation, even so it is not to exclude some breadboard parasitic capacitance, that could have caused some deviation from simulation in the experimental data. The breadboard adds some capacitance, in the order of \unit{\pico\farad}, and some resistance, that influences the response of the circuit. There is an intrinsic difficulty in the manual measure of a low voltage at high frequency, due to signal stability and external electromagnetic effects (Radio waves). The phase graph reinforces the suspect of a parasitic capacitance, in fact the phase change starts at a lower frequency than expected, that is compatible to a higher capacitance.
 
-% \end{multicols}
 \subsection{Differentiator}
 
 \begin{figure*} [ht!]
