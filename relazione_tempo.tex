@@ -153,17 +153,17 @@ Other considerations that can be made are on the frequency, in fact it is clearl
 
 \begin{table}[ht]
     \centering
-    \caption{Comparison between the expected frequency and the experimental frequency, it is clear in this case that there are some mislabelled capacitance.}
+    \caption{Comparison between the expected frequency and the experimental frequency calculated using $f = 1/\left(4RC\ln\frac{R_2}{R_1+R_2}\right)$, it is clear in this case that there are some mislabelled capacitance.}
     \label{tab:multivibe}
     \begin{tabular}{SSS}
         \toprule
         {Capacitance} & {$f_{exp}$} & {$f$}\\
         {[\si{\farad}]} &  {[\si{\hertz}]}&{[\si{\hertz}]}\\
         \midrule
-        \num{66e-9} & \num{250} & \num{200}\\
-        \num{660e-9} & \num{25} & \num{30}\\
-        \num{730e-9} & \num{16e3} & \num{30e3} \\
-        \num{955e-12}& \num{20} & \num{40}\\
+        \num{150e-9} & \num{240} & \num{200}\\
+        \num{1500e-9} & \num{24} & \num{30}\\
+        \num{730e-9} & \num{37e3} & \num{30e3} \\
+        \num{955e-12}& \num{49} & \num{40}\\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -216,17 +216,17 @@ Another very important point is in the measure of the value of the components, i
     \centering
     \subfloat
     [In red the voltage in $v^+$, in blue $v_{out}$. In this case the blue waveform is effectively the output, the high level reached is due to the sum of the voltage across the capacitor and the output, in fact it is visible in the peak the capacitor discharge.]
-    {\includegraphics[width = .45\textwidth]{def_graph/MULTIVIBRATORE-660NF-10KOHM.pdf}} \qquad
+    {\includegraphics[width = .45\textwidth]{def_graph/MULTIVIBRATORE-1500NF-10KOHM.pdf}} \qquad
     \subfloat
     [In red the voltage in $v^+$, in blue $v^-$, it is very visible in this case that the switch in the output happens when the capacitor voltage reaches the level set by the resistive voltage divider.]
     {%
-        \includegraphics[width = .45\textwidth]{def_graph/MULTIVIBRATORE-66NF-10KOHM.pdf}%
+        \includegraphics[width = .45\textwidth]{def_graph/MULTIVIBRATORE-150NF-10KOHM.pdf}%
         %
     }\\
     \subfloat
     [In red the voltage in $v^+$, in blue $v_{out}$.]%
     {%
-        \includegraphics[width = .45\textwidth]{def_graph/MULTIVIBRATORE-66NF-10KOHM_1.pdf}%
+        \includegraphics[width = .45\textwidth]{def_graph/MULTIVIBRATORE-150NF-10KOHM_1.pdf}%
     }\qquad
     \subfloat
     [In red the voltage in $v^+$, in blue $v^-$.]%
