@@ -21,7 +21,7 @@
 
 \section{Abstract}
 
-This report wants to show the difference between two oscillating circuits based on an operational amplifier. In particular the focus will be on the different functioning principle and the waveforms produced and the electrical characteristic of the waveform, so frequency and voltage peak to peak in relation to the capacitance value.
+This report wants to show the difference between two oscillating circuits based on an operational amplifier. In particular the focus will be on the different functioning principle and the waveforms produced and the electrical characteristic of the waveform, so frequency and peak to peak Voltage in relation to the capacitance value.
 
 \section{Introduction}
 
@@ -34,7 +34,7 @@ This report wants to show the difference between two oscillating circuits based 
     \input{def_graph/Multivibrator.pdf_tex}
 \end{center}
 
-As shown in figure, the circuit is composed of two feedback loops, one gives positive feedback and the other negative feedback. Due to positive feedback in this circuit virtual ground principle cannot be used. In principle the circuit can be divided in two parts:
+As shown in figure, the circuit is composed of two feedback loops, one gives positive feedback and the other negative feedback. Due to positive feedback, in this circuit virtual ground principle cannot be used. In principle the circuit can be divided in two parts:
 
 \begin{itemize}
     \item The Positive Feedback Loop, that behaves like a Schmidt Trigger.
@@ -58,13 +58,13 @@ To understand why it oscillates we must write KVL (Kirchhoff's Voltage Law):
     \end{cases}
 \end{gather}
 
-In \eqref{eq:genStable}, it is necessary to divide in two complementary scenarios: the charge and discharge of a capacitor, in fact suppose the capacitor is charged with a positive voltage and \(v_{out}\) is negative, then first the capacitor will discharge that follows \(\dv{v^-}{t}= \frac{v_{V_out}}{RC}\exp\left(\frac{-t}{RC}\right)\), and then it will charge with \(\dv{v^-}{t}= \frac{v_{V_out}}{RC}\left(1-\exp\left(\frac{-t}{RC}\right)\right)\). In general, considering only the discharge, the condition where \(v_{out}\) switches from positive to negative is:
+In \eqref{eq:genStable}, it is necessary to divide in two complementary scenarios: the charge and discharge of a capacitor, in fact suppose the capacitor is charged with a positive voltage and \(v_{out}\) is negative, then first the capacitor will discharge following \(\dv{v^-}{t}= \frac{v_{V_out}}{RC}\exp\left(\frac{-t}{RC}\right)\), and then it will charge with \(\dv{v^-}{t}= \frac{v_{V_out}}{RC}\left(1-\exp\left(\frac{-t}{RC}\right)\right)\). In general, considering only the discharge, the condition where \(v_{out}\) switches from positive to negative is:
 \begin{equation}
     \label{eq:trigCond}
     \exp\left(\frac{-t}{RC}\right) = \frac{R_2}{R_1+R_2}
 \end{equation}
 
-So from \eqref{eq:trigCond} is visible that the duration of an oscillation depends on \(\tau = RC\) but also on \(R_1\) and \(R_2\), that set the level of charge in the capacitor necessary to trig the Schmidt part of multivibrator.
+So from \eqref{eq:trigCond} is visible that the duration of an oscillation depends on \(\tau = RC\) but also on \(R_1\) and \(R_2\), these resistances set the level of charge in the capacitor necessary to trig the Schmidt part of multivibrator.
 
 \subsection{Colpitts Oscillator}
 
@@ -80,7 +80,7 @@ As shown in figure this circuit is completely different from the previous one, i
     G \ge \frac{1}{\beta}
 \end{equation}
 
-Where: \(G\) is the voltage gain of the OPAMP, and $\beta$ is the feedback ratio of the output. Another condition of the Barkhausen Criterion is the total shift phase of the loop must be an entire multiple of \(2\pi\). 
+Where: \(G\) is the voltage gain of the OPAMP, and $\beta$ is the feedback ratio of the output. Another condition is that the total phase shift of the loop must be an entire multiple of \(2\pi\). 
 The feedback ratio is calculated as follows: 
 
 \begin{gather}
@@ -123,7 +123,7 @@ The only elements in the circuit that causes a phase shift are the capacitors, t
 
 \subsection{Procedure}
 
-After assembling the circuits on a Breadboard, it was applied a constant negative and positive voltage of \SI{15}{\volt} on the alimentation pins of OPAMP. In both case an oscilloscope probe was connected on the output, in the case of the multivibrator a second probe was connected across the capacitor.  Via OSC, the waveforms were sampled and saved on an Excel file in the lab computer. 
+After assembling the circuits on a Breadboard, it was applied a constant negative and positive voltage of \SI{15}{\volt} on the alimentation pins of the OPAMP. In both cases an oscilloscope probe was connected on the output; in the case of the multivibrator a second probe was connected across the capacitor.  Via OSC, the waveforms were sampled and saved on an Excel file in the lab computer. 
 The capacitor was swapped (in Colpitts case only $C_1$ capacitor was swapped) and the procedure was repeated.
 
 \section{Analysis}
@@ -133,23 +133,23 @@ To analyze the circuit it was used a Python environment that uses the libraries 
 
 \subsection{Frequency}
 
-The analysis done was to determine the oscillation frequency, following referred as $f$, in both circuits a capacitor was changed across several values to see the change in frequency and different waveform.
+The analysis done was to determine the oscillation frequency $f$, in both circuits a capacitor was changed across several values to see the change in frequency and different waveform.
 
 The sampled waveforms consist of 2500 points, this points in the program are collected in a NumPy array and then are passed in NumPy's FFT algorithm, this algorithm returns a complex valued array, representing the Fourier Transform of the circuit, to obtain the fundamental frequency it is calculated the modulus of the component of the array and from it are extracted the highest value.
 
-From this we can confront the value with the expected value $f_{exp} $ in both cases, and also we can confront how \emph{good} is the produced waveform with the expected waveform confronting the harmonics of the two.
+With this method it is possible to compare $f$ with the expected value $f_{exp}$. Additionally, it is possible to observe the harmonics to confront how \emph{good} is the produced waveform with the ideal waveform.
 
 \subsection{Astable Multivibrator}
 
-Because there are many set of data, the plots are inserted in appendix~\ref{app:multivib}.
+Because there are many sets of data, the plots are inserted in appendix~\ref{app:multivib}.
 
-In the case of the Multivibrator the simulation are not consistent with the sampled results, this is probably due to a human error, in fact the resistance used are all \SI{10}{\kilo\ohm}, but probably the capacitance values are mislabelled (see~\ref{tab:multivibe}), another error made is that the point where the probes were connected is not consistent, in fact the probe were connected. Even so some consideration can be made, in fact the only consistent measure is taken in point $v^+$, it is possible to see from the graphs that the amplitude of the signal in  is effectively limited from the resistive voltage divider to \SI{7.5}{\volt}, which correspond effectively to half $V_{cc}$ which was \SI{15}{\volt}.
+In the case of the Multivibrator the simulations are not consistent with the sampled results, this is probably due to a human error, in fact the resistance used are all \SI{10}{\kilo\ohm}, but probably the capacitance values are mislabelled (see~\ref{tab:multivibe}), another error made is that the point where the probes were connected is not consistent, in fact the probe were connected. Even so, some considerations can be made, in fact the only consistent measure is taken in point $v^+$, it is possible to see from the graphs that the signal amplitude is effectively limited from the resistive voltage divider to \SI{7.5}{\volt}, which correspond to half $V_{cc}$ which was \SI{15}{\volt}.
 
 Another thing that can be seen is in the graphs where the voltage is taken in $v^+$ and $v^-$ is that the effective switch of the voltage is in correspondence of $v^-\approx v^+$.
 
 Instead, in graphs where the points taken are $v_{out}$ and $v^+$ it is possible to denote that the output wave is not a perfect square wave.
 
-Other considerations that can be made are on the frequency, in fact it is clearly visible that it has a correlation to the capacitance used, also in the circuit with the highest frequency it is observable the slew rate of the OPAMP, it is due to a limitation to the maximum output current of the OPAMP, that limits the maximum voltage variation supported by the OPAMP, it is a form of distortion and in some case can introduce a difference in phase.
+Other considerations that can be made are on the frequency, in fact it is clearly visible that it has a correlation to the capacitance used, also in the circuit with the highest frequency OPAMP slew rate is observable, this is a limitation to the output current of the OPAMP, that limits the maximum voltage variation supported by the OPAMP, it is a form of distortion and in some case can introduce a difference in phase.
 
 \begin{table}[ht]
     \centering
@@ -200,12 +200,14 @@ In some graphs is clearly visible a distortion, in fact these graphs are more si
 
 \section{Conclusion}
 
-It can be seen, even if only a qualitative way that the two oscillators produce in most cases the desired waveform. The Astable Multivibrator can produce very low frequency waves without distortion, but at high frequency (around \SI{30}{\kilo\hertz}) is limited by the properties of the OPAMP used. The signal produced has a great amplitude dependent only on the supply voltage and not on the component used. 
+Even if only in a qualitative way, due to the difficulty to simulate the two circuits, that the two oscillators produce in most cases the desired waveform.
 
-Instead, Colpitts Oscillator produces with low distortion waves at very high frequency. Its defects are in the choice of components, that must respect the Barkhausen criteria and the limitation of the OPAMP, and the amplitude of the signal that in respect of the multivibrator is very small.
+The Astable Multivibrator can produce very low frequency waves without distortion, but at high frequency (around \SI{30}{\kilo\hertz}) is limited by the properties of the OPAMP used. The signal produced has a great amplitude dependent only on the supply voltage and not on the component used. 
+
+Instead, Colpitts Oscillator produces with low distortion waves at very high frequency. Its flaws are in the choice of components, that must respect the Barkhausen criteria and the limitation of the OPAMP, and in the amplitude of the signal, that compared to multivibrator, is very small.
 
 Another very important point is in the measure of the value of the components, in fact most electrical components are very similar, so it is important to keep track of the value used. 
-
+s
 \appendix
 \onecolumn
 
@@ -250,7 +252,7 @@ Another very important point is in the measure of the value of the components, i
     \subfloat{\includegraphics[width = .5\columnwidth]{def_graph/COLPITTS-102K-10000pF.pdf}}
     \subfloat[This is the sample with the highest frequency that maintains a perfect sinusoidal waveform]{\includegraphics[width = .5\columnwidth]{def_graph/COLPITTS-102K-470pF.pdf}}\\
     \subfloat{\includegraphics[width = .5\columnwidth]{def_graph/COLPITTS-102K-47nF.pdf}}
-    \subfloat[In this case is visible dome distortion]{\includegraphics[width = .5\columnwidth]{def_graph/COLPITTS-102K-560pF.pdf}}\\
+    \subfloat[In this case is visible some distortion]{\includegraphics[width = .5\columnwidth]{def_graph/COLPITTS-102K-560pF.pdf}}\\
     \subfloat[Also in this case distortion is present]{\includegraphics[width = .5\columnwidth]{def_graph/COLPITTS-102K-635pF.pdf}}
 \end{figure}
 
