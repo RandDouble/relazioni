@@ -5,14 +5,12 @@
 
 \usepackage{amssymb, amsmath}
 \usepackage{physics}
-\usepackage{graphicx, xcolor,dblfloatfix}
+\usepackage{graphicx, xcolor}
 \usepackage{subcaption}
 \usepackage{siunitx}
-\usepackage{booktabs, caption}
-% subfig,
-%******RELAZIONE DOMINIO TEMPO*****
+\usepackage{booktabs, caption,}
 
-\graphicspath{def_graph}
+%******RELAZIONE DOMINIO TEMPO*****
 
 \begin{document}
 
@@ -32,7 +30,7 @@ This report wants to show the difference between two oscillating circuits based 
 
 \begin{center}
     \centering
-    \def \svgwidth{\columnwidth}
+    \def \svgwidth{0.95\columnwidth}
     \input{def_graph/Multivibrator.pdf_tex}
 \end{center}
 
@@ -72,7 +70,7 @@ So from \eqref{eq:trigCond} is visible that the duration of an oscillation depen
 
 \begin{center}
     \centering
-    \def \svgwidth{\columnwidth}
+    \def \svgwidth{.95\columnwidth}
     \input{def_graph/Colpitts.pdf_tex}
 \end{center}
 
@@ -154,12 +152,13 @@ Instead, in graphs where the points taken are $v_{out}$ and $v^+$ it is possible
 Other considerations that can be made are on the frequency, in fact it is clearly visible that it has a correlation to the capacitance used, also in the circuit with the highest frequency it is observable the slew rate of the OPAMP, it is due to a limitation to the maximum output current of the OPAMP, that limits the maximum voltage variation supported by the OPAMP, it is a form of distortion and in some case can introduce a difference in phase.
 
 \begin{table}[ht]
+    \centering
     \caption{Comparison between the expected frequency and the experimental frequency, it is clear in this case that there are some mislabelled capacitance.}
     \label{tab:multivibe}
     \begin{tabular}{SSS}
         \toprule
         {Capacitance} & {$f_{exp}$} & {$f$}\\
-        {\si{\farad}} &  {\si{\hertz}}&{\si{\hertz}}\\
+        {[\si{\farad}]} &  {[\si{\hertz}]}&{[\si{\hertz}]}\\
         \midrule
         \num{66e-9} & \num{250} & \num{200}\\
         \num{660e-9} & \num{25} & \num{30}\\
@@ -182,12 +181,13 @@ It is clearly visible that this oscillator produces sinusoidal waves at high fre
 In some graphs is clearly visible a distortion, in fact these graphs are more similar to a triangular wave than a sine, in these circumstances the distortion is caused by the OPAMP slew rate: a limitation in the output current of the OPAMP that limits the rate of change of the voltage. 
 
 \begin{table}[ht]
+    \centering
     \caption{The measured frequency in relation to the capacitance used in $C_1$}
     \label{tab:colpitts}
     \begin{tabular}{SSS}
         \toprule
         {Capacitance $C_1$} & {$f_{exp}$} & {$f$} \\
-        {(\si{\farad})} & {(\si{\hertz})} & {(\si{\hertz})}\\
+        {[\si{\farad}]} & {[\si{\hertz}]} & {[\si{\hertz}]}\\
         \midrule
         \num{47e-9}  & \num{360e3} & \num{200e3}\\
         \num{470e-12}& \num{630e3} & \num{250e3}\\
@@ -208,10 +208,12 @@ Another very important point is in the measure of the value of the components, i
 
 \appendix
 \onecolumn
+
 \section{Astable Multivibrator Graphs}
 \label{app:multivib}
 
 \begin{figure}[h!]
+    \centering
     \subfloat
     [In red the voltage in $v^+$, in blue $v_{out}$. In this case the blue waveform is effectively the output, the high level reached is due to the sum of the voltage across the capacitor and the output, in fact it is visible in the peak the capacitor discharge.]
     {\includegraphics[width = .45\textwidth]{def_graph/MULTIVIBRATORE-660NF-10KOHM.pdf}} \qquad

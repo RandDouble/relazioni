@@ -5,11 +5,8 @@
 
 \usepackage{amssymb, amsmath}
 \usepackage{physics}
-\usepackage{graphicx, xcolor, subfig,dblfloatfix}
+\usepackage{graphicx, xcolor, subfig}
 \usepackage{siunitx}
-\usepackage{geometry}
-
-\graphicspath{./def_graph/}
 
 %*****RELAZIONE DOMINIO FREQUENZA*****
 
@@ -18,8 +15,6 @@
 \author{Stefano Pilosio}
 
 \maketitle
-% \begin{multicols}{2}
-
 
 \section{Abstract}
 The objective was to measure the frequency response of two similar circuits. Even thought the circuits use the same components, they show different behaviors, not only in the operation applied to the input signal to produce the output signal, but also in the Frequency Response.
@@ -62,7 +57,7 @@ From last equation, resolving for $v_{OUT}$:
 
 \begin{equation}
     \label{eq:Integrator}
-    v_{OUT}=-\frac{1}{CR}\int_0^t{v_{IN}}\,dt + v(0)
+    v_{OUT}=-\frac{1}{CR}\int_0^t{v_{IN}}dt + v(0)
 \end{equation}
 
 It is visible from~\eqref{eq:Integrator}, that this circuit in time domain produces the integral function of the input signal.
@@ -173,21 +168,20 @@ During the measuring process data were saved on a comma separated value text fil
     
 % \end{multicols}
 
-\subsection{Integrator}
-\begin{figure*}[ht!]
+\begin{figure*}[!ht]
     \centering
-    \subfloat{\includegraphics[width = \textwidth]{def_graph/Exp_Integ_graph.pdf}} \\
-    \subfloat{\includegraphics[width = \columnwidth]{def_graph/Exp_Integ_Phase.pdf}} 
-    \subfloat{\includegraphics[width = \columnwidth]{def_graph/Exp_Integ_Nyquist.pdf}}
+    \subfloat{\includegraphics[width = .95\textwidth]{def_graph/Exp_Integ_graph.pdf}} \\
+    \subfloat{\includegraphics[width = 1.05\columnwidth]{def_graph/Exp_Integ_Phase.pdf}} 
+    \subfloat{\includegraphics[width = 1.\columnwidth]{def_graph/Exp_Integ_Nyquist.pdf}}
     \caption{Resulting plot after experiment and simulation, it is notable that the frequency response resemble closely the simulated behavior and the expected behavior from section~\ref{sec:integr}.}
     \label{fig:expIntegr}
 \end{figure*}
+\subsection{Integrator}
 
 As shown in Figure~\ref{fig:expIntegr} the frequency response is very similar to the expected one. There is a difference in the curl at high frequency, this is probably due to non-ideal aspect of OPAMP amplification frequency response due to the fact that is present also in the simulation, even so it is not to exclude some breadboard parasitic capacitance, that could have caused some deviation from simulation in the experimental data. The breadboard adds some capacitance, in the order of \unit{\pico\farad}, and some resistance, that influences the response of the circuit. There is an intrinsic difficulty in the manual measure of a low voltage at high frequency, due to signal stability and external electromagnetic effects (Radio waves). The phase graph reinforces the suspect of a parasitic capacitance, in fact the phase change starts at a lower frequency than expected, that is compatible to a higher capacitance.
 
-\subsection{Differentiator}
 
-\begin{figure*} [ht!]
+\begin{figure*} [!ht]
     \centering
     \subfloat{\includegraphics[width = \textwidth]{def_graph/Exp_Diff_graph.pdf}}\\
     \subfloat{\includegraphics[width = \columnwidth]{def_graph/Exp_Diff_Phase.pdf}} 
@@ -196,8 +190,7 @@ As shown in Figure~\ref{fig:expIntegr} the frequency response is very similar to
     \label{fig:expDiff}
 \end{figure*}
 
-% \begin{multicols}{2}
-
+\subsection{Differentiator}
 
 As shown in Figure~\ref{fig:expDiff} we have a resonance peak at around \SI{75}{\kilo\hertz}, also in this case the experimental trend resembles the simulated very closely. The lack of points around the resonance frequency is due to the used frequency sequence.
 
@@ -207,4 +200,5 @@ In the phase Diagram and also in Nyquist plot is clearly visible when the behavi
 
 At the end we have two interesting circuits that can calculate in real time two complex linear operations such as the derivative and integral of a function, it is interesting also to opposite behavior in respect to the frequency of the circuits and its possible application.  
 % \end{multicols}
+
 \end{document}
